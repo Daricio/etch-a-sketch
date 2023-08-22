@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 960px;
+  border: 2px solid black;
+}
+
+.container > div {
+  width: 6.25%;
+  aspect-ratio: 1;
+  /* background: repeating-linear-gradient(
+    90deg,
+    red 10%,
+    transparent
+  ), linear-gradient(
+    yellow,
+    white
+  ); */
+}
+
+.black {
+  background-color: black;
+}
