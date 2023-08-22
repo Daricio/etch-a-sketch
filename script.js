@@ -102,7 +102,6 @@ function paint(cell) {
       paintRandomColor(cell);
       break;
 
-    // TODO
     case 'eraser':
       erase(cell);
       break;
@@ -127,8 +126,8 @@ function getRandomRGB() {
   return rgb = `rgb(${r}, ${g}, ${b})`;
 }
 
-function erase() {
-
+function erase(cell) {
+  cell.style.backgroundColor = 'white';
 }
 
 // random number in range [min, max)
@@ -151,6 +150,4 @@ function removeGrid() {
 }
 
 // TODO:
-// add eraser
-// add switch between black and multicolor
 // second challenge with darkening effect
