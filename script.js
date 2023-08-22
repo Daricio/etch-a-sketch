@@ -37,6 +37,8 @@ function createGrid(squaresPerSide) {
   }
 
   addHoveringEffect();
+  addPaintingByClick();
+  disableDrag();
 }
 
 
@@ -44,18 +46,39 @@ function createGrid(squaresPerSide) {
 function addHoveringEffect() {
   const gridCells = document.querySelectorAll('.container > div');
   gridCells.forEach(cell => {
-    cell.addEventListener('mouseover', paintRandomColor);
+    cell.addEventListener('mouseover', e => {
+      if (e.buttons === 1) {
+        paintRandomColor(cell);
+      }
+    });
   })
 }
 
+function addPaintingByClick() {
+  const gridCells = document.querySelectorAll('.container > div');
+  gridCells.forEach(cell => {
+    cell.addEventListener('mousedown', e => {
+      paintRandomColor(cell);
+    });
+  })
+}
+
+function disableDrag() {
+  const gridCells = document.querySelectorAll('.container > div');
+  gridCells.forEach(cell => {
+    cell.addEventListener('dragstart', e => {
+      e.preventDefault();
+    })
+  })
+}
 
 function paintBlack() {
   this.classList.add('black');
 }
 
-function paintRandomColor() {
+function paintRandomColor(cell) {
   const color = getRandomRGB();
-  this.style.backgroundColor = color;
+  cell.style.backgroundColor = color;
 }
 
 function getRandomRGB() {
@@ -84,7 +107,7 @@ function removeGrid() {
   }
 }
 
-// TODO: git commit
+// TODO:
 // paint when mouse is pressed
 // add eraser
 // add switch between black and multicolor
