@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-wrap: wrap;
-  width: 780px;
+  width: 760px;
   border: 2px solid black;
 }
 
@@ -22,4 +22,13 @@
   padding: 10px;
   border: 1px solid black;
   border-radius: 3px;
+}
+
+.mode:hover {
+  cursor: pointer;
+}
+
+.selected {
+  background-color: rgb(88, 88, 88);
+  color: white;
 }
