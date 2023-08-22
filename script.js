@@ -1,5 +1,7 @@
 const container = document.getElementById('container');
 
+let paintMode = 'black';
+
 createGrid(16);
 
 // when button is clicked, prompt number of squares per side
@@ -36,15 +38,16 @@ function createGrid(squaresPerSide) {
     container.appendChild(gridCell);
   }
 
-  addHoveringEffect();
-  addPaintingByClick();
-  disableDrag();
+  const gridCells = document.querySelectorAll('.container > div');
+
+  addHoveringEffect(gridCells);
+  addPaintingByClick(gridCells);
+  disableDrag(gridCells);
 }
 
 
 // add event listener for each grid div to paint black
-function addHoveringEffect() {
-  const gridCells = document.querySelectorAll('.container > div');
+function addHoveringEffect(gridCells) {
   gridCells.forEach(cell => {
     cell.addEventListener('mouseover', e => {
       if (e.buttons === 1) {
@@ -54,8 +57,7 @@ function addHoveringEffect() {
   })
 }
 
-function addPaintingByClick() {
-  const gridCells = document.querySelectorAll('.container > div');
+function addPaintingByClick(gridCells) {
   gridCells.forEach(cell => {
     cell.addEventListener('mousedown', e => {
       paintRandomColor(cell);
@@ -63,8 +65,7 @@ function addPaintingByClick() {
   })
 }
 
-function disableDrag() {
-  const gridCells = document.querySelectorAll('.container > div');
+function disableDrag(gridCells) {
   gridCells.forEach(cell => {
     cell.addEventListener('dragstart', e => {
       e.preventDefault();
@@ -72,8 +73,29 @@ function disableDrag() {
   })
 }
 
-function paintBlack() {
-  this.classList.add('black');
+function paint(cell) {
+  // if black, paint cell black
+  // if multicolor, paint cell random color
+  // if eraser, paint cell white
+  switch (paintMode) {
+    case 'black':
+      paintBlack(cell);
+      break;
+
+    case 'random-color':
+      paintRandomColor(cell);
+      break;
+
+    case 'eraser':
+      erase(cell);
+      break;
+
+    default:
+  }
+}
+
+function paintBlack(cell) {
+  cell.style.backgroundColor = 'black';
 }
 
 function paintRandomColor(cell) {
@@ -86,6 +108,10 @@ function getRandomRGB() {
   const g = generateRandom(0, 256);
   const b = generateRandom(0, 256);
   return rgb = `rgb(${r}, ${g}, ${b})`;
+}
+
+function erase() {
+
 }
 
 // random number in range [min, max)
@@ -108,7 +134,6 @@ function removeGrid() {
 }
 
 // TODO:
-// paint when mouse is pressed
 // add eraser
 // add switch between black and multicolor
 // second challenge with darkening effect
