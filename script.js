@@ -44,7 +44,7 @@ function createGrid(squaresPerSide) {
 function addHoveringEffect() {
   const gridCells = document.querySelectorAll('.container > div');
   gridCells.forEach(cell => {
-    cell.addEventListener('mouseover', paintBlack);
+    cell.addEventListener('mouseover', paintRandomColor);
   })
 }
 
@@ -53,9 +53,39 @@ function paintBlack() {
   this.classList.add('black');
 }
 
+function paintRandomColor() {
+  const color = getRandomRGB();
+  this.style.backgroundColor = color;
+}
+
+function getRandomRGB() {
+  const r = generateRandom(0, 256);
+  const g = generateRandom(0, 256);
+  const b = generateRandom(0, 256);
+  return rgb = `rgb(${r}, ${g}, ${b})`;
+}
+
+// random number in range [min, max)
+function generateRandom(min, max) {
+  // generate random number in range [0, 1)
+  let rand = Math.random();
+  // multiply this number by min-max difference - number of options, floor it
+  let difference = max - min;
+  rand = Math.floor(rand * difference);
+  // add min
+  rand += min;
+  return rand;
+}
+
 function removeGrid() {
   // delete last child of container until there is no last child
   while (container.lastChild) {
     container.lastChild.remove();
   }
 }
+
+// TODO: git commit
+// paint when mouse is pressed
+// add eraser
+// add switch between black and multicolor
+// second challenge with darkening effect
