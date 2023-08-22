@@ -2,6 +2,22 @@ const container = document.getElementById('container');
 
 let paintMode = 'black';
 
+const blackModeButton = document.getElementById('black-mode-btn');
+const randColorModeButton = document.getElementById('rand-color-mode-btn');
+const eraser = document.getElementById('eraser');
+
+blackModeButton.addEventListener('click', () => {
+  paintMode = 'black';
+})
+
+randColorModeButton.addEventListener('click', () => {
+  paintMode = 'random-color';
+})
+
+eraser.addEventListener('click', () => {
+  paintMode = 'eraser';
+})
+
 createGrid(16);
 
 // when button is clicked, prompt number of squares per side
@@ -51,7 +67,7 @@ function addHoveringEffect(gridCells) {
   gridCells.forEach(cell => {
     cell.addEventListener('mouseover', e => {
       if (e.buttons === 1) {
-        paintRandomColor(cell);
+        paint(cell);
       }
     });
   })
@@ -60,7 +76,7 @@ function addHoveringEffect(gridCells) {
 function addPaintingByClick(gridCells) {
   gridCells.forEach(cell => {
     cell.addEventListener('mousedown', e => {
-      paintRandomColor(cell);
+      paint(cell);
     });
   })
 }
@@ -86,6 +102,7 @@ function paint(cell) {
       paintRandomColor(cell);
       break;
 
+    // TODO
     case 'eraser':
       erase(cell);
       break;
