@@ -6,30 +6,31 @@ const blackModeButton = document.getElementById('black-mode-btn');
 const randColorModeButton = document.getElementById('rand-color-mode-btn');
 const eraserButton = document.getElementById('eraser-btn');
 
-setPaintMode('black', blackModeButton);
+setPaintMode('black');
 
 blackModeButton.addEventListener('click', () => {
-  setPaintMode('black', blackModeButton);
+  setPaintMode('black');
 });
 
 randColorModeButton.addEventListener('click', () => {
-  setPaintMode('random-color', randColorModeButton);
+  setPaintMode('random-color');
 });
 
 eraserButton.addEventListener('click', () => {
-  setPaintMode('eraser', eraserButton);
+  setPaintMode('eraser');
 });
 
 // set mode:
 // disable all mode buttons
 // enable new mode button
-function setPaintMode(newMode, newModeButton) {
+function setPaintMode(newMode) {
   const modeButtons = Array.from(document.getElementsByClassName('mode'));
   modeButtons.forEach(modeButton => {
     modeButton.classList.remove('selected');
   })
 
   paintMode = newMode;
+  const newModeButton = document.querySelector(`.mode.${newMode}`);
   newModeButton.classList.add('selected');
 }
 
@@ -165,5 +166,4 @@ function removeGrid() {
 }
 
 // TODO:
-// visual representation of a mode being selected
 // second challenge with darkening effect
