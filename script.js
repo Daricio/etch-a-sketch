@@ -5,6 +5,7 @@ const container = document.getElementById('container');
 const blackModeButton = document.getElementById('black-mode-btn');
 const randColorModeButton = document.getElementById('rand-color-mode-btn');
 const eraserButton = document.getElementById('eraser-btn');
+const shadingModeButton = document.getElementById('shading-mode-btn');
 
 setPaintMode('black');
 
@@ -18,6 +19,10 @@ randColorModeButton.addEventListener('click', () => {
 
 eraserButton.addEventListener('click', () => {
   setPaintMode('eraser');
+});
+
+shadingModeButton.addEventListener('click', () => {
+  setPaintMode('shading');
 });
 
 // set mode:
@@ -122,12 +127,16 @@ function paint(cell) {
       erase(cell);
       break;
 
+    case 'shading':
+      darken(cell);
+      break;
+
     default:
   }
 }
 
 function paintBlack(cell) {
-  cell.style.backgroundColor = 'black';
+  cell.style.backgroundColor = 'rgb(0, 0, 0)';
 }
 
 function paintRandomColor(cell) {
@@ -143,7 +152,25 @@ function getRandomRGB() {
 }
 
 function erase(cell) {
-  cell.style.backgroundColor = 'white';
+  cell.style.backgroundColor = 'rgb(255, 255, 255)';
+}
+
+function darken(cell) {
+  const initialRGB = getComputedStyle(cell).backgroundColor.slice(4, -1); // "r, g, b"
+  // // split rgb by comma
+  const rgbArray = initialRGB.split(','); // ['r', ' g', ' b']
+  // trim r, g, b
+  const r = rgbArray[0].trim();
+  const g = rgbArray[1].trim();
+  const b = rgbArray[2].trim();
+  // // convert r, g, b to numbers, substract 26
+  // // if r/g/b < 0, assign 0
+  const newR = (r - 26 > 0) ? (r - 26) : 0;
+  const newG = (g - 26 > 0) ? (g - 26) : 0;
+  const newB = (b - 26 > 0) ? (b - 26) : 0;
+  // // rgb-format string with new r, g, b values
+  const newRGB = `rgb(${newR}, ${newG}, ${newB})`;
+  cell.style.backgroundColor = newRGB;
 }
 
 // random number in range [min, max)
